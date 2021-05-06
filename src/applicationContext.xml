@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<!-- Bean for IoC -->
+	<bean id="studentBean" class="com.spring.pojo.Student">
+		<property name="name" value="Anurag"></property>
+	</bean>
+
+	<!-- Bean for constructor DI -->
+	<bean id="employeBean" class="com.spring.pojo.Employe">
+		<constructor-arg name="id" value="25"></constructor-arg>
+		<constructor-arg name="name" value="Anurag"></constructor-arg>
+	</bean>
+
+	<!-- Bean for setter DI -->
+	<bean id="carBean" class="com.spring.pojo.Car">
+		<property name="year" value="2020">
+		</property>
+		<property name="name">
+			<value>Getz</value>
+		</property>
+	</bean>
+
+	<!-- Bean for list constructor DI -->
+	<bean id="questionBean" class="com.spring.pojo.Question">
+		<constructor-arg name="answers">
+			<list>
+				<value>lalita</value>
+				<value>jodhpur</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Bean for list dependent object setter DI -->
+	<bean id="answerBean" class="com.spring.pojo.Answer">
+		<property name="id" value="56"></property>
+		<property name="by" value="anu"></property>
+	</bean>
+	<bean id="queryBeanListDO" class="com.spring.pojo.Query">
+		<property name="answers">
+			<list>
+				<ref bean="answerBean" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Bean for map setter DI -->
+	<bean id="problemBean" class="com.spring.pojo.Problem">
+		<property name="solutions">
+			<map>
+				<entry key="BMW" value="2019"></entry>
+				<entry key="Audi" value="2018"></entry>
+			</map>
+
+		</property>
+	</bean>
+
+	<!-- Bean for map dependent object constructor DI -->
+	<bean id="cityBean" class="com.spring.pojo.City">
+		<constructor-arg name="name" value="Jodhpur"></constructor-arg>
+	</bean>
+
+	<bean id="stateBean" class="com.spring.pojo.State">
+		<constructor-arg name="name" value="Rajasthan"></constructor-arg>
+	</bean>
+
+	<bean id="countryBean" class="com.spring.pojo.Country">
+		<constructor-arg name="rank" value="1"></constructor-arg>
+		<constructor-arg name="country">
+			<map>
+				<entry key-ref="cityBean" value-ref="stateBean"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- AutoWire -->
+	<bean id="author" class="com.spring.pojo.Author">
+		<property name="name" value="anu">
+		</property>
+	</bean>
+
+	<bean id="book" class="com.spring.pojo.Book">
+		<property name="name" value="java">
+		</property>
+	</bean>
+
+	<!-- AutoWire By constructor -->
+	<bean id="developer" class="com.spring.pojo.Developer"
+		autowire="constructor" />
+	<bean id="language" class="com.spring.pojo.Language">
+		<property name="name" value="Java" />
+	</bean>
+
+	<!-- AutoWire By Type -->
+	<bean id="person" class="com.spring.pojo.Person" autowire="byType" />
+	<bean id="invisible" class="com.spring.pojo.Ability">
+		<property name="skill" value="Invisible" />
+	</bean>
+
+	<!-- AutoWire By Name -->
+	<bean id="customer" class="com.spring.pojo.Customer"
+		autowire="byName" />
+	<bean id="receiver" class="com.spring.pojo.Receiver">
+		<property name="fulladdress" value="Block A 888, CA" />
+	</bean>
+</beans> 
